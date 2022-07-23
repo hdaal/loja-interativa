@@ -13,7 +13,7 @@ use App\Models\Fabricante;
 class ProdutoController extends Controller
 {
     public function index() {
-
+        
         $produtos = Produto::all();
 
         $categorias = Categoria::all();

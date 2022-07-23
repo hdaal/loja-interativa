@@ -16,7 +16,7 @@ use App\Http\Controllers\ProdutoController;
 */
 
 Route::get('/', function () {
-    return view('produtos.index');
+    return to_route('produtos.index');
 });
 
 Route::resource('/produtos', ProdutoController::class)->only([

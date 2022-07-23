@@ -16,4 +16,11 @@ class Produto extends Model
         'quantidade',
         'valorUnidade'
     ];
+
+    public function categoria() {
+        return $this->belongsTo(Categoria::class);
+    }
+    public function fabricante() {
+        return $this->belongsTo(Fabricante::class);
+    }
 }

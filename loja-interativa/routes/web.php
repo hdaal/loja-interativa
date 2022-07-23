@@ -22,4 +22,7 @@ Route::get('/', function () {
 Route::resource('/produtos', ProdutoController::class)->only([
     'index',
     'store',
+    'edit',
+    'update',
+    'destroy',
 ]);

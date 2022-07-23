@@ -6,8 +6,6 @@
 
         <title>Laravel</title>
 
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
         <!-- Fonts -->
@@ -30,99 +28,39 @@
             <div class="card border-white" style="width: 50%;">
                 <div class="card-body">
                     <h3 class="card-title text-primary">Cadastrar Produto</h3>
-                    <form action="{{ route('produtos.store') }}" method="post">
+                    <form action="{{ route('produtos.update', $produto->id) }}" method="post">
                         @csrf
+                        @method('PUT')
                         <div class="form-group">
                             <label for="nome" class="text-primary">Nome Produto</label>
-                            <input type="text" class="form-control" id="nome" name="nome">
+                            <input type="text" class="form-control" id="nome" name="nome" value="{{ $produto->nome }}">
                         </div>
                         <div class="form-group">
                             <label for="nome" class="text-primary">Fabricante Produto</label>
-                            <select id="fabricante-select" class="form-select text-primary" aria-label="Default select example" name="fabricante">
-                                <option selected>Selecione</option>
-                                @foreach($fabricantes as $fabricante)
-                                <option value="{{ $fabricante->id }}">{{ $fabricante->nome }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="nome" name="fabricante" value="{{ $produto->fabricante }}">
                         </div>
                         <div class="form-group">
                             <label for="nome" class="text-primary">Categoria Produto</label>
-                            <select id="categoria-select" class="form-select text-primary" aria-label="Default select example" name="fabricante">
-                                <option selected>Selecione</option>
-                                @foreach($categorias as $categoria)
-                                    <option class="categorias {{ $categoria->fabricante_id }}" data="{{ $categoria->fabricante_id }}" value="{{ $categoria->categoria }}">{{ $categoria->categoria }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" id="nome" name="categoria" value="{{ $produto->categoria }}">
                         </div>
                         <div class="form-group">
                             <label for="nome" class="text-primary">Quantidade</label>
-                            <input type="number" min="1" class="form-control" id="quantidade" name="quantidade" style="width:25%;">
+                            <input type="number" min="1" class="form-control" id="quantidade" name="quantidade" style="width:25%;" value="{{ $produto->quantidade }}">
                         </div>
                         <div class="form-group">
                             <label for="nome" class="text-primary">Valor unidade</label>
-                            <input type="number" min="0" class="form-control" id="valor" name="valorUnidade" style="width:35%;">
+                            <input type="number" min="0" class="form-control" id="valor" name="valorUnidade" style="width:35%;" value="{{ $produto->valorUnidade }}">
                         </div>
                         <div class="form-group">
-                            <button class="form-control bg-primary text-white mt-3">Adicionar Produto</button>
+                            <button class="form-control bg-primary text-white my-3">Editar Produto</button>
+                            <a href="{{ route('produtos.index') }}" class="text-primary">Voltar</a>
                         </div>
                     </form>
                 </div>
             </div>
-            <!--- Fim formulario --->
-
-            <!--- Tabela --->
-            <table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col"><p class="m-0 text-primary">Nome</p></th>
-                    <th scope="col"><p class="m-0 text-primary">Fabricante</p></th>
-                    <th scope="col"><p class="m-0 text-primary">Categoria</p></th>
-                    <th scope="col"><p class="m-0 text-primary">quant.</p></th>
-                    <th scope="col"><p class="m-0 text-primary">Val.</p></th>
-                    <th scope="col"><p class="m-0 text-primary">Ações</p></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    @foreach($produtos as $produto)
-                    <th scope="row">{{ $produto->nome }}</th>
-                    <td>{{ $produto->fabricante }}</td>
-                    <td>{{ $produto->categoria }}</td>
-                    <td>{{ $produto->quantidade }}</td>
-                    <td>{{ $produto->valorUnidade }}</td>
-                    <td class="d-flex">
-                        <!--- Delete --->
-                        <form class="mx-2" action="{{ route('produtos.destroy', $produto->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-                                </svg>
-                            </button>
-                        </form>
-
-                        <!--- Editar --->
-                        <form action="{{ route('produtos.edit', $produto->id) }}" method="get">
-                            <button class="btn btn-sm btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                             </svg>
-                            </button>
-
-                        </form>
-                    </td>
-                    @endforeach
-                    </tr>
-                </tbody>
-            </table>
         </div>
+        <!--- Fim formulario --->
     </body>
-
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/select.js') }}"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </html>

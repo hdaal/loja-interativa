@@ -41,16 +41,16 @@
                             <select id="fabricante-select" class="form-select text-primary" aria-label="Default select example" name="fabricante">
                                 <option selected>Selecione</option>
                                 @foreach($fabricantes as $fabricante)
-                                <option value="{{ $fabricante->id }}">{{ $fabricante->nome }}</option>
+                                <option value="{{ $fabricante->nome }}">{{ $fabricante->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="nome" class="text-primary">Categoria Produto</label>
-                            <select id="categoria-select" class="form-select text-primary" aria-label="Default select example" name="fabricante">
+                            <select id="categoria-select" class="form-select text-primary" aria-label="Default select example" name="categoria">
                                 <option selected>Selecione</option>
                                 @foreach($categorias as $categoria)
-                                    <option class="categorias {{ $categoria->fabricante_id }}" data="{{ $categoria->fabricante_id }}" value="{{ $categoria->categoria }}">{{ $categoria->categoria }}</option>
+                                    <option value="{{ $categoria->categoria }}">{{ $categoria->categoria }}</option>
                                 @endforeach
                             </select>
                         </div>

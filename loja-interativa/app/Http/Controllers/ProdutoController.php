@@ -24,6 +24,7 @@ class ProdutoController extends Controller
             ->with('fabricantes', $fabricantes)
             ->with('categorias', $categorias);
     }
+
     public function store(Request $request) {
 
         Produto::create($request->all());
